@@ -23,6 +23,19 @@ export class ConexionApiService {
       })
     );
   }
+  getUnaPersona(unIdPersona:number): any {
+    let url = `${URL_LOCAL}/persona/${unIdPersona}`;
+
+
+
+
+    return this.http.get(url).pipe(
+      map((resp:any) => {
+        console.log('DATOS', resp);
+        return resp.data;
+      })
+    );
+  }
   crud_Personas(unaPersona: Persona, unaAccion: string):any {
     //console.log(unExpediente);
 
@@ -45,6 +58,8 @@ export class ConexionApiService {
       parametros2 = parametros2.append('nombres',unaPersona.nombre);
       parametros2 = parametros2.append('apellidos',unaPersona.apellido);
       parametros2 = parametros2.append('fecha_nacimiento',unaPersona.fecha_nacimiento);
+      parametros2 = parametros2.append('tipo_documento',unaPersona.tipo_documento);
+      parametros2 = parametros2.append('numero_documento',unaPersona.numero_documento);
 
 
 
@@ -52,6 +67,8 @@ export class ConexionApiService {
         nombre:unaPersona.nombre,
         apellidos: unaPersona.apellido,
         fecha_nacimiento: unaPersona.fecha_nacimiento,
+        tipo_documento: unaPersona.tipo_documento,
+        numero_documento: unaPersona.numero_documento
 
       };
 
@@ -67,19 +84,22 @@ export class ConexionApiService {
       parametros = parametros.append('nombres',unaPersona.nombre);
       parametros = parametros.append('apellidos',unaPersona.apellido);
       parametros = parametros.append('fecha_nacimiento',unaPersona.fecha_nacimiento);
-  
+      parametros = parametros.append('tipo_documento',unaPersona.tipo_documento);
+      parametros = parametros.append('numero_documento',unaPersona.numero_documento);
  
 
       const body = {
         nombre:unaPersona.nombre,
         apellidos: unaPersona.apellido,
         fecha_nacimiento: unaPersona.fecha_nacimiento,
-
+        tipo_documento: unaPersona.tipo_documento,
+        numero_documento: unaPersona.numero_documento
       };
 
       //console.log(parametros);
       return this.http.put(url, body).pipe(map((data) => data));
     }
+   
   }
   
 }

@@ -7,13 +7,15 @@ import { HomeComponent } from './pages/home/home.component';
 import { PersonasComponent } from './pages/personas/personas.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddEditPersonaComponent } from './components/add-edit-persona/add-edit-persona.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PersonasComponent,
-    NavbarComponent
+    NavbarComponent,
+    AddEditPersonaComponent
   ],
   imports: [
     BrowserModule,

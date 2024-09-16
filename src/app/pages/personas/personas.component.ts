@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConexionApiService } from '../../services/conexion-api.service';
 import { Router } from '@angular/router';
 import { Persona } from '../../interfaces/persona.interface';
@@ -38,45 +38,56 @@ export class PersonasComponent {
         console.log(this.personas)
       });
   }
-  eliminarPersona(unaPersona: Persona){
-    console.log(unaPersona)
-    this.dataBD.crud_Personas(unaPersona, 'eliminar').subscribe(
-      (res: any) => {
-        this.unResultado = res;
 
-        //console.log(this.unResultado);
-        if (this.unResultado.Ok == true) {
+  
+  eliminarPersona(unaPersona: Persona): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Quieres eliminar a ${unaPersona.nombre}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.dataBD.crud_Personas(unaPersona, 'eliminar').subscribe(
+          async (res: any) => {
+            if (res.Ok) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Eliminado',
+                text: 'Persona eliminada con éxito',
+              });
 
-           Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: 'Heroe Eliminado',
-          });
-
-          this.unaAccion = 'Mensaje:';
-          this.unMensaje = 'Heroe Eliminado';
-          setTimeout(() => (this.unMensaje = ''), 3000);
-
-
-          this.cargarPersonasBD() ;
-
-        } else {
-          Swal.fire({
-            icon: 'info',
-            title: 'Information',
-            text: this.unResultado.msg,
-          });
-    
-
-          this.unaAccion = 'Error:';
-          this.unMensaje = this.unResultado.msg;
-          setTimeout(() => (this.unMensaje = ''), 3000);
-        }
+             
+              await this.cargarPersonasBD();
+            } else {
+              
+              Swal.fire({
+                icon: 'success',
+                title: 'Eliminado',
+                text: 'Persona eliminada con éxito',
+              });
+            }
+          },
+          (error: any) => {
+            console.error('Error deleting persona:', error);
+            
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: error.error?.msg || 'No se pudo eliminar la persona. Verifica los logs del servidor para más detalles.',
+            });
+          }
+        );
       }
-      ,(error:any) => {
-        console.error(error)
-      }
-    );
+    });
+  }
+
+  editarPersona(unIdPersona:number){
+    this.router.navigate(['/persona', unIdPersona])
   }
 
 
