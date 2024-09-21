@@ -8,7 +8,7 @@ import { PersonasComponent } from './pages/personas/personas.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddEditPersonaComponent } from './components/add-edit-persona/add-edit-persona.component';
-
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +20,8 @@ import { AddEditPersonaComponent } from './components/add-edit-persona/add-edit-
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

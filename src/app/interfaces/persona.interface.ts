@@ -3,6 +3,6 @@ export interface Persona{
     nombre: string,
     apellido: string,
     fecha_nacimiento: string,
-    tipo_documento: string,
-    numero_documento: string
+    Tipo_documento: string,
+    'Numero Documento': string
 }

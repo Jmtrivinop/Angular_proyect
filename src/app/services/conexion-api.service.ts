@@ -24,7 +24,7 @@ export class ConexionApiService {
     );
   }
   getUnaPersona(unIdPersona:number): any {
-    let url = `${URL_LOCAL}/persona/${unIdPersona}`;
+    let url = `${URL_LOCAL}/personas/persona/${unIdPersona}`;
 
 
 
@@ -37,9 +37,9 @@ export class ConexionApiService {
     );
   }
   crud_Personas(unaPersona: Persona, unaAccion: string):any {
-    //console.log(unExpediente);
-
+  
     if (unaAccion === 'eliminar') {
+      let parametros2 = new HttpParams();
 
       let url = `${URL_LOCAL}/personas/${unaPersona.id_persona}`;
 
@@ -51,55 +51,42 @@ export class ConexionApiService {
     }
 
     if (unaAccion === 'insertar') {
-      let parametros2 = new HttpParams();
+      
+      //let parametros2 = new HttpParams();
       let url = URL_LOCAL+ '/personas';
 
-      // Begin assigning parameters
-      parametros2 = parametros2.append('nombres',unaPersona.nombre);
-      parametros2 = parametros2.append('apellidos',unaPersona.apellido);
-      parametros2 = parametros2.append('fecha_nacimiento',unaPersona.fecha_nacimiento);
-      parametros2 = parametros2.append('tipo_documento',unaPersona.tipo_documento);
-      parametros2 = parametros2.append('numero_documento',unaPersona.numero_documento);
-
-
+     
 
       const body = {
         nombre:unaPersona.nombre,
-        apellidos: unaPersona.apellido,
-        fecha_nacimiento: unaPersona.fecha_nacimiento,
-        tipo_documento: unaPersona.tipo_documento,
-        numero_documento: unaPersona.numero_documento
-
+        apellido:unaPersona.apellido,
+        fecha_nacimiento:unaPersona.fecha_nacimiento,
+        Tipo_documento: unaPersona.Tipo_documento,
+        'Numero Documento':unaPersona['Numero Documento']
       };
 
       return this.http.post(url, body).pipe(map((data) => data));
     }
 
     if (unaAccion === 'modificar') {
-      let parametros = new HttpParams();
+      
+
 
       let url = `${URL_LOCAL}/personas/${unaPersona.id_persona}`;
 
-      // Begin assigning parameters
-      parametros = parametros.append('nombres',unaPersona.nombre);
-      parametros = parametros.append('apellidos',unaPersona.apellido);
-      parametros = parametros.append('fecha_nacimiento',unaPersona.fecha_nacimiento);
-      parametros = parametros.append('tipo_documento',unaPersona.tipo_documento);
-      parametros = parametros.append('numero_documento',unaPersona.numero_documento);
- 
+
 
       const body = {
         nombre:unaPersona.nombre,
-        apellidos: unaPersona.apellido,
-        fecha_nacimiento: unaPersona.fecha_nacimiento,
-        tipo_documento: unaPersona.tipo_documento,
-        numero_documento: unaPersona.numero_documento
+        apellido:unaPersona.apellido,
+        fecha_nacimiento:unaPersona.fecha_nacimiento,
+        Tipo_documento: unaPersona.Tipo_documento,
+        'Numero Documento':unaPersona['Numero Documento']
       };
 
       //console.log(parametros);
       return this.http.put(url, body).pipe(map((data) => data));
     }
-   
   }
   
 }

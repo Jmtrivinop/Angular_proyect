@@ -1,34 +1,50 @@
-<form>
+<form (ngSubmit)="guardar()">
   <div class="mb-3">
     <label for="nombreInput" class="form-label">Nombre</label>
-    <input type="text" class="form-control" id="nombreInput" aria-describedby="nombreHelp" required>
+    <input 
+    [(ngModel)]="unaPersona.nombre"
+    name="nombre"
+    type="text" class="form-control" id="nombreInput" aria-describedby="nombreHelp" required>
     <div id="nombreHelp" class="form-text"></div>
   </div>
 
   <div class="mb-3">
     <label for="apellidoInput" class="form-label">Apellido</label>
-    <input type="text" class="form-control" id="apellidoInput" aria-describedby="apellidoHelp" required>
+    <input 
+    [(ngModel)]="unaPersona.apellido"
+    name="apellido"   
+    type="text" class="form-control" id="apellidoInput" aria-describedby="apellidoHelp" required>
     <div id="apellidoHelp" class="form-text"></div>
   </div>
 
   <div class="mb-3">
     <label for="fechaNacimientoInput" class="form-label">Fecha de Nacimiento</label>
-    <input type="date" class="form-control" id="fechaNacimientoInput" aria-describedby="fechaNacimientoHelp" required>
+    <input
+    [(ngModel)]="unaPersona.fecha_nacimiento"
+    name="fecha_nacimiento"
+     type="date" class="form-control" id="fechaNacimientoInput" aria-describedby="fechaNacimientoHelp" required>
     <div id="fechaNacimientoHelp" class="form-text"></div>
   </div>
 
   <div class="mb-3">
     <label for="tipoDocumentoInput" class="form-label">Tipo de Documento</label>
-    <input type="text" class="form-control" id="tipoDocumentoInput" aria-describedby="tipoDocumentoHelp" required>
+    <input 
+    [(ngModel)]="unaPersona.Tipo_documento"
+    name="tipo_documento"
+    type="text" class="form-control" id="tipoDocumentoInput" 
+    aria-describedby="tipoDocumentoHelp" required>
     <div id="tipoDocumentoHelp" class="form-text">.</div>
   </div>
 
   <div class="mb-3">
     <label for="numeroDocumentoInput" class="form-label">Número de Documento</label>
-    <input type="text" class="form-control" id="numeroDocumentoInput" aria-describedby="numeroDocumentoHelp" required>
+    <input 
+    [(ngModel)]="unaPersona['Numero Documento']"
+    name="numero_documento"
+    type="text" class="form-control" id="numeroDocumentoInput" aria-describedby="numeroDocumentoHelp" required>
     <div id="numeroDocumentoHelp" class="form-text"></div>
   </div>
 
  
-  <button type="submit" class="btn btn-primary">Enviar</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>

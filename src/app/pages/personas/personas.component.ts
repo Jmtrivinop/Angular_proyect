@@ -59,7 +59,7 @@ export class PersonasComponent {
                 icon: 'success',
                 title: 'Eliminado',
                 text: 'Persona eliminada con éxito',
-              });
+              })
 
              
               await this.cargarPersonasBD();
