@@ -9,13 +9,19 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddEditPersonaComponent } from './components/add-edit-persona/add-edit-persona.component';
 import { FormsModule } from '@angular/forms';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { AddEditUsuarioComponent } from './components/add-edit-usuario/add-edit-usuario.component';
+import { LoginComponent } from './pages/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PersonasComponent,
     NavbarComponent,
-    AddEditPersonaComponent
+    AddEditPersonaComponent,
+    UsuarioComponent,
+    AddEditUsuarioComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

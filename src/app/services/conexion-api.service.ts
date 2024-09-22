@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { URL_LOCAL } from '../config/url.servicios';
 import { map } from 'rxjs';
 import { Persona } from '../interfaces/persona.interface';
-
+import { Usuario } from '../interfaces/usuario.interface';
+import { RouterLink } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -88,5 +89,82 @@ export class ConexionApiService {
       return this.http.put(url, body).pipe(map((data) => data));
     }
   }
+  getUsuarios(): any {
+    let url = `${URL_LOCAL}/user`;
+
+
+
+
+    return this.http.get(url).pipe(
+      map((resp:any) => {
+        console.log('DATOS', resp);
+        return resp.data;
+      })
+    );
+  }
+  getUnUsuario(unIdUsuario:number): any {
+    let url = `${URL_LOCAL}/user/${unIdUsuario}`;
+
+
+
+
+    return this.http.get(url).pipe(
+      map((resp:any) => {
+        console.log('DATOS', resp);
+        return resp.data;
+      })
+    );
+  }
+  crud_usuarios(unUsuario: Usuario, unaAccion: string):any {
   
+    if (unaAccion === 'eliminar') {
+      let parametros2 = new HttpParams();
+
+      let url = `${URL_LOCAL}/user/${unUsuario.id_usuario}`;
+
+      return this.http.delete(url).pipe(
+        map((data) => {
+          return data;
+        })
+      );
+    }
+
+    if (unaAccion === 'insertar') {
+      
+      //let parametros2 = new HttpParams();
+      let url = URL_LOCAL+ '/user';
+
+     
+
+      const body = {
+        email:unUsuario.email,
+        password:unUsuario.password,
+        rol:unUsuario.rol,
+        estado: unUsuario.estado,
+        id_persona:unUsuario.id_persona
+      };
+
+      return this.http.post(url, body).pipe(map((data) => data));
+    }
+
+    if (unaAccion === 'modificar') {
+      
+
+
+      let url = `${URL_LOCAL}/user/${unUsuario.id_usuario}`;
+
+
+
+      const body = {
+        email:unUsuario.email,
+        password:unUsuario.password,
+        rol:unUsuario.rol,
+        estado: unUsuario.estado,
+        id_persona:unUsuario.id_persona
+      };
+
+      //console.log(parametros);
+      return this.http.put(url, body).pipe(map((data) => data));
+    }
+  }
 }

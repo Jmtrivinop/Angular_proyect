@@ -1,0 +1,43 @@
+<form (ngSubmit)="guardar()">
+    <div class="mb-3">
+      <label for="emailInput" class="form-label">email</label>
+      <input 
+      [(ngModel)]="unUsuario.email"
+      name="email"
+      type="text" class="form-control" id="emailInput" aria-describedby="emailHelp" required>
+      <div id="emailHelp" class="form-text"></div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="id_personaInput" class="form-label">Id Persona</label>
+      <input 
+      [(ngModel)]="unUsuario.id_persona"
+      name="id_persona"   
+      type="text" class="form-control" id="id_personaInput" aria-describedby="id_personaHelp" required>
+      <div id="id_personaHelp" class="form-text"></div>
+    </div>
+  
+
+    <div class="mb-3">
+      <label for="estadoInput" class="form-label">Estado</label>
+      <input 
+      [(ngModel)]="unUsuario.estado"
+      name="estado"
+      type="text" class="form-control" id="estadoInput" 
+      aria-describedby="estadoHelp" required>
+      <div id="estadoHelp" class="form-text">.</div>
+    </div>
+  
+    <div class="mb-3">
+        <label for="estadoInput" class="form-label">password</label>
+        <input 
+        [(ngModel)]="unUsuario.password"
+        name="password"
+        type="text" class="form-control" id="passwordInput" 
+        aria-describedby="passwordHelp" required>
+        <div id="passwordHelp" class="form-text">.</div>
+      </div>
+  
+   
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
