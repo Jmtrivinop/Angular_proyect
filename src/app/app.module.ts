@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { AddEditUsuarioComponent } from './components/add-edit-usuario/add-edit-usuario.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CiudadComponent } from './pages/ciudad/ciudad.component';
+import { AddEditCiudadComponent } from './components/add-edit-ciudad/add-edit-ciudad.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,9 @@ import { LoginComponent } from './pages/login/login.component';
     AddEditPersonaComponent,
     UsuarioComponent,
     AddEditUsuarioComponent,
-    LoginComponent
+    LoginComponent,
+    CiudadComponent,
+    AddEditCiudadComponent
   ],
   imports: [
     BrowserModule,

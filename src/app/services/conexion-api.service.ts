@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 import { Persona } from '../interfaces/persona.interface';
 import { Usuario } from '../interfaces/usuario.interface';
 import { RouterLink } from '@angular/router';
+import { Ciudad } from '../interfaces/ciudad.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -161,6 +162,79 @@ export class ConexionApiService {
         rol:unUsuario.rol,
         estado: unUsuario.estado,
         id_persona:unUsuario.id_persona
+      };
+
+      //console.log(parametros);
+      return this.http.put(url, body).pipe(map((data) => data));
+    }
+  }
+  getCiudades(): any {
+    let url = `${URL_LOCAL}/ciudad`;
+
+
+
+
+    return this.http.get(url).pipe(
+      map((resp:any) => {
+        console.log('DATOS', resp);
+        return resp.data;
+      })
+    );
+  }
+  getUnaCiudad(unIdCiudad:number): any {
+    let url = `${URL_LOCAL}/ciudad/${unIdCiudad}`;
+
+
+
+
+    return this.http.get(url).pipe(
+      map((resp:any) => {
+        console.log('DATOS', resp);
+        return resp.data;
+      })
+    );
+  }
+  crud_ciudades(unaCiudad: Ciudad, unaAccion: string):any {
+  
+    if (unaAccion === 'eliminar') {
+      let parametros2 = new HttpParams();
+
+      let url = `${URL_LOCAL}/ciudad/${unaCiudad.id_ciudad}`;
+
+      return this.http.delete(url).pipe(
+        map((data) => {
+          return data;
+        })
+      );
+    }
+
+    if (unaAccion === 'insertar') {
+      
+  
+      let url = URL_LOCAL+ '/ciudad';
+
+     
+
+      const body = {
+        nombre:unaCiudad.nombre,
+        pais:unaCiudad.pais,
+      
+      };
+
+      return this.http.post(url, body).pipe(map((data) => data));
+    }
+
+    if (unaAccion === 'modificar') {
+      
+      
+
+      let url = `${URL_LOCAL}/ciudad/${unaCiudad.id_ciudad}`;
+
+
+
+      const body = {
+        nombre:unaCiudad.nombre,
+        pais:unaCiudad.pais,
       };
 
       //console.log(parametros);

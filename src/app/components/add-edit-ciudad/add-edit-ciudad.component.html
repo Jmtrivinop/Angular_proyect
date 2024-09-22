@@ -1,0 +1,23 @@
+<form (ngSubmit)="guardar()">
+    <div class="mb-3">
+      <label for="nombreInput" class="form-label">ciudad</label>
+      <input 
+      [(ngModel)]="unaCiudad.nombre"
+      name="nombre"
+      type="text" class="form-control" id="nombreInput" aria-describedby="nombreHelp" required>
+      <div id="nombreHelp" class="form-text"></div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="paisInput" class="form-label">pais</label>
+      <input 
+      [(ngModel)]="unaCiudad.pais"
+      name="pais"   
+      type="text" class="form-control" id="paisInput" aria-describedby="paisHelp" required>
+      <div id="paisHelp" class="form-text"></div>
+    </div>
+  
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
