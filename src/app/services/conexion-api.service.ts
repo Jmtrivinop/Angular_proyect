@@ -149,7 +149,7 @@ export class ConexionApiService {
 
     if (unaAccion === 'modificar') {
       
-
+      
 
       let url = `${URL_LOCAL}/user/${unUsuario.id_usuario}`;
 
