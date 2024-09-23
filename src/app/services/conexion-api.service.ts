@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL_LOCAL } from '../config/url.servicios';
 import { map } from 'rxjs';
@@ -10,8 +10,12 @@ import { Ciudad } from '../interfaces/ciudad.interface';
   providedIn: 'root'
 })
 export class ConexionApiService {
+  userToken: any;
+  
 
-  constructor(public http:HttpClient) { }
+  constructor(public http:HttpClient) {
+    this.userToken = this.leerToken();
+   }
   getPersonas(): any {
     let url = `${URL_LOCAL}/personas`;
 
@@ -39,6 +43,7 @@ export class ConexionApiService {
     );
   }
   crud_Personas(unaPersona: Persona, unaAccion: string):any {
+
   
     if (unaAccion === 'eliminar') {
       let parametros2 = new HttpParams();
@@ -117,13 +122,13 @@ export class ConexionApiService {
     );
   }
   crud_usuarios(unUsuario: Usuario, unaAccion: string):any {
-  
+    const headers_object = new HttpHeaders().set('x-token', this.leerToken());
     if (unaAccion === 'eliminar') {
       let parametros2 = new HttpParams();
 
       let url = `${URL_LOCAL}/user/${unUsuario.id_usuario}`;
 
-      return this.http.delete(url).pipe(
+      return this.http.delete(url, {headers: headers_object}).pipe(
         map((data) => {
           return data;
         })
@@ -145,7 +150,7 @@ export class ConexionApiService {
         id_persona:unUsuario.id_persona
       };
 
-      return this.http.post(url, body).pipe(map((data) => data));
+      return this.http.post(url, body, {headers: headers_object}).pipe(map((data) => data));
     }
 
     if (unaAccion === 'modificar') {
@@ -165,7 +170,7 @@ export class ConexionApiService {
       };
 
       //console.log(parametros);
-      return this.http.put(url, body).pipe(map((data) => data));
+      return this.http.put(url, body, {headers: headers_object}).pipe(map((data) => data));
     }
   }
   getCiudades(): any {
@@ -241,4 +246,17 @@ export class ConexionApiService {
       return this.http.put(url, body).pipe(map((data) => data));
     }
   }
+  public leerToken() {
+    if (localStorage.getItem('token')) {
+      this.userToken = localStorage.getItem('token');
+    } else {
+      this.userToken = '';
+    }
+
+    //console.log(this.userToken);
+
+    return this.userToken;
+  }
+
+
 }
