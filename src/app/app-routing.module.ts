@@ -7,14 +7,17 @@ import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { AddEditUsuarioComponent } from './components/add-edit-usuario/add-edit-usuario.component';
 import { CiudadComponent } from './pages/ciudad/ciudad.component';
 import { AddEditCiudadComponent } from './components/add-edit-ciudad/add-edit-ciudad.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'personas', component: PersonasComponent},
   { path: 'persona/:id', component: AddEditPersonaComponent},
-  { path: 'usuario', component: UsuarioComponent},
-  { path: 'user/:id', component: AddEditUsuarioComponent},
+  { path: 'usuario', component: UsuarioComponent,  canActivate: [AuthGuard]},
+  { path: 'user/:id', component: AddEditUsuarioComponent,  canActivate: [AuthGuard]},
   { path: 'ciudad', component: CiudadComponent},
   { path: 'ciudad/:id', component: AddEditCiudadComponent},
+  { path: 'login', component: LoginComponent},
 
 
   { path: '**', pathMatch: 'full', redirectTo: 'home' }

@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL_LOCAL } from '../config/url.servicios';
-import { map } from 'rxjs';
+import { catchError, map } from 'rxjs';
 import { Persona } from '../interfaces/persona.interface';
 import { Usuario } from '../interfaces/usuario.interface';
 import { RouterLink } from '@angular/router';
 import { Ciudad } from '../interfaces/ciudad.interface';
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
@@ -96,6 +97,7 @@ export class ConexionApiService {
     }
   }
   getUsuarios(): any {
+    
     let url = `${URL_LOCAL}/user`;
 
 
@@ -109,6 +111,7 @@ export class ConexionApiService {
     );
   }
   getUnUsuario(unIdUsuario:number): any {
+   
     let url = `${URL_LOCAL}/user/${unIdUsuario}`;
 
 
@@ -121,58 +124,106 @@ export class ConexionApiService {
       })
     );
   }
-  crud_usuarios(unUsuario: Usuario, unaAccion: string):any {
-    const headers_object = new HttpHeaders().set('x-token', this.leerToken());
+  crud_usuarios(unUsuario: Usuario, unaAccion: string): any {
+    const token = this.leerToken();
+  
+    if (!token) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de autenticación',
+        text: 'Token no encontrado, el usuario no está autenticado',
+      });
+      return; // O retornar un observable con un error
+    }
+  
+    const headers_object = new HttpHeaders().set('x-token', token);
+  
     if (unaAccion === 'eliminar') {
-      let parametros2 = new HttpParams();
-
       let url = `${URL_LOCAL}/user/${unUsuario.id_usuario}`;
-
-      return this.http.delete(url, {headers: headers_object}).pipe(
+  
+      return this.http.delete(url, { headers: headers_object }).pipe(
         map((data) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Usuario eliminado',
+            text: 'El usuario ha sido eliminado exitosamente.',
+          });
           return data;
+        }),
+        catchError(error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al eliminar',
+            text: 'No se pudo eliminar el usuario. Intenta de nuevo.',
+          });
+          throw error;
         })
       );
     }
-
+  
     if (unaAccion === 'insertar') {
-      
-      //let parametros2 = new HttpParams();
-      let url = URL_LOCAL+ '/user';
-
-     
-
+      let url = `${URL_LOCAL}/user`;
+  
       const body = {
-        email:unUsuario.email,
-        password:unUsuario.password,
-        rol:unUsuario.rol,
+        email: unUsuario.email,
+        password: unUsuario.password,
+        rol: unUsuario.rol,
         estado: unUsuario.estado,
-        id_persona:unUsuario.id_persona
+        id_persona: unUsuario.id_persona,
       };
-
-      return this.http.post(url, body, {headers: headers_object}).pipe(map((data) => data));
+  
+      return this.http.post(url, body, { headers: headers_object }).pipe(
+        map((data) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Usuario insertado',
+            text: 'El usuario ha sido creado exitosamente.',
+          });
+          return data;
+        }),
+        catchError(error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al insertar',
+            text: 'No se pudo crear el usuario. Intenta de nuevo.',
+          });
+          throw error;
+        })
+      );
     }
-
+  
     if (unaAccion === 'modificar') {
-      
-      
-
       let url = `${URL_LOCAL}/user/${unUsuario.id_usuario}`;
-
-
-
+  
       const body = {
-        email:unUsuario.email,
-        password:unUsuario.password,
-        rol:unUsuario.rol,
+        email: unUsuario.email,
+        password: unUsuario.password,
+        rol: unUsuario.rol,
         estado: unUsuario.estado,
-        id_persona:unUsuario.id_persona
+        id_persona: unUsuario.id_persona,
       };
-
-      //console.log(parametros);
-      return this.http.put(url, body, {headers: headers_object}).pipe(map((data) => data));
+  
+      return this.http.put(url, body, { headers: headers_object }).pipe(
+        map((data) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Usuario modificado',
+            text: 'El usuario ha sido modificado exitosamente.',
+          });
+          return data;
+        }),
+        catchError(error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al modificar',
+            text: 'No se pudo modificar el usuario. Intenta de nuevo.',
+          });
+          throw error;
+        })
+      );
     }
   }
+  
   getCiudades(): any {
     let url = `${URL_LOCAL}/ciudad`;
 

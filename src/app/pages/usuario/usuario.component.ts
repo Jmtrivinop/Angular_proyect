@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConexionApiService } from '../../services/conexion-api.service';
 import { Router } from '@angular/router';
 import { Usuario } from '../../interfaces/usuario.interface';
+import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -17,6 +18,7 @@ export class UsuarioComponent {
 
 
   constructor(
+    private authService: AuthService,
     private dataBD: ConexionApiService,
     private router: Router,
   ) {
@@ -94,7 +96,10 @@ export class UsuarioComponent {
 
 
 
-
+  onLogout() {
+    this.authService.logout(); 
+    this.router.navigate(['/login']);
+  }
 
 
 }

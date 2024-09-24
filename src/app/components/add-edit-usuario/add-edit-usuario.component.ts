@@ -15,7 +15,7 @@ export class AddEditUsuarioComponent {
     id_usuario: -1, 
     email: '', 
     password: '', 
-    id_persona: 0, 
+    id_persona: 1, 
     rol: 'USER_ROLE', 
     estado: true 
   };
